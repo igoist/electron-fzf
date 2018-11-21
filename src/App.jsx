@@ -35,8 +35,9 @@ class App extends React.Component {
 
   render() {
     const { value, result } = this.state;
-    const arr = result.slice(0, 10);
-    ipcRenderer.send('change-win', { listHeight: arr.length });
+    // const arr = result.slice(0, 10);
+    const arr = result;
+    ipcRenderer.send('change-win', { listHeight: arr.length > 10 ? 10 : arr.length });
     console.log(arr);
 
     return (
