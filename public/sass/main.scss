@@ -1,0 +1,47 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: #333;
+  overflow: hidden;
+}
+
+#searchInput {
+  border: 1px solid #333;
+  padding: 0 18px;
+  height: 56px;
+  line-height: 56px;
+  width: 100%;
+  background-color: #333;
+  color: #149cec;
+  // caret-color: #149cec;
+  font-size: 18px;
+  font-family: -apple-system,BlinkMacSystemFont,Helvetica Neue,PingFang SC,Microsoft YaHei,Source Han Sans SC,Noto Sans CJK SC,WenQuanYi Micro Hei,sans-serif;
+  font-weight: bold;
+  letter-spacing: 0.2px;
+  outline: none;
+}
+
+#searchResult {
+  li {
+    border: 1px solid #333;
+    padding: 0 18px;
+    height: 56px;
+    line-height: 56px;
+    color: #149cec;
+    font-size: 16px;
+    font-family: -apple-system,BlinkMacSystemFont,Helvetica Neue,PingFang SC,Microsoft YaHei,Source Han Sans SC,Noto Sans CJK SC,WenQuanYi Micro Hei,sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    // letter-spacing: 0.2px;
+    // outline: none;
+
+    span.em {
+      color: #4fa;
+    }
+  }
+}

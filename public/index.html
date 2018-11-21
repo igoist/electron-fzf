@@ -3,15 +3,24 @@
   <head>
     <meta charset="UTF-8">
     <title>Hello World!</title>
+    <!-- <link rel="stylesheet" href="http://localhost:8081/css/main.css"> -->
+    <link rel="stylesheet" href="../public/css/main.css">
+    <style>
+      body {
+        -webkit-user-select: none;
+        -webkit-app-region: drag;
+      }
+    </style>
   </head>
   <body>
-    <h1>Hello World!</h1>
+    <!-- <h1>Hello World!</h1>
     We are using node <script>document.write(process.versions.node)</script>,
     Chrome <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
+    and Electron <script>document.write(process.versions.electron)</script>. -->
 
-    <div>
+    <div id="app">
 
     </div>
-  </body>
+  <!-- <script type="text/javascript" src="./bundle.js"></script></body> -->
+  <script type="text/javascript" src="http://localhost:8081/bundle.js"></script></body>
 </html>
