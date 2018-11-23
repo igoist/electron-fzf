@@ -55,6 +55,7 @@ $itemHeight: 56px;
 
     transition: border-width 0.5s, border-color 0.5s, background-color 0.5s;
 
+    &.selected,
     &:active,
     &:hover {
       border-left-width: 12px;

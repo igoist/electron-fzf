@@ -1,18 +1,16 @@
 {
-  "name": "memo",
+  "name": "electron-fzf",
   "version": "0.0.1",
-  "description": "memo",
+  "description": "electron-fzf",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "open": "open http://localhost/~egoist/Apps/Memo/dist/",
     "build": "webpack",
-    "start": "webpack --watch",
+    "watch": "webpack --watch",
     "dev": "webpack-dev-server",
-    "electron-dev": "electron ."
+    "start": "electron ."
   },
   "keywords": [
-    "memo note"
+    "electron-fzf nf"
   ],
   "author": "igoist",
   "license": "MIT",
