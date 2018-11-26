@@ -35,7 +35,7 @@ function animateScroll2(element, targetTop) {
   function step() {
     // console.log('in step');
     currentTop += speed;
-    if ((flag && currentTop <= targetTop) || (!flag && currentTop >= targetTop)) {
+    if ((flag && currentTop < targetTop) || (!flag && currentTop > targetTop)) {
       element.scrollTop = currentTop;
       requestId = window.requestAnimationFrame(step);
     } else {
@@ -45,7 +45,19 @@ function animateScroll2(element, targetTop) {
   window.requestAnimationFrame(step);
 }
 
+const returnCurrent = (current, index) => {
+  // console.log('current: ', current, 'index: ', index);
+  if (index - current > 9) {
+    return index - 9;
+  }
+  if (current > index) {
+    return index;
+  }
+  return current;
+};
+
 export {
   animateScroll,
-  animateScroll2
+  animateScroll2,
+  returnCurrent
 }

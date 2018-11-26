@@ -1,45 +1,55 @@
 import * as React from 'react';
 import { scroll } from './util/';
 
+
 class SearchResult extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      targetIndex: 0
+      targetIndex: 0,
+      current: 0
     };
   }
 
   componentDidMount() {
-
+    console.log('init');
     window.addEventListener('keydown', (e) => {
       console.log('The key code is: ' + e.keyCode);
-      // if ((e.key === 'b' || e.key === 'B') && e.metaKey) {
-      //   ctrlPanel.classList.toggle('closed')
-      // }
+
       if (e.keyCode === 74 || e.keyCode === 40) {
         this.setState((state, props) => {
+          const newTargetIndex = state.targetIndex + 1 > props.arr.length - 1 ? state.targetIndex : state.targetIndex + 1;
           return {
-            targetIndex: state.targetIndex + 1 > props.arr.length - 1 ? state.targetIndex : state.targetIndex + 1
+            targetIndex: newTargetIndex,
+            current: scroll.returnCurrent(this.state.current, newTargetIndex)
           }
         });
       }
       if (e.keyCode === 75 || e.keyCode === 38) {
         this.setState((state) => {
+          const newTargetIndex = state.targetIndex > 0 ? state.targetIndex - 1 : 0;
           return {
-            targetIndex: state.targetIndex > 0 ? state.targetIndex - 1 : 0
+            targetIndex: newTargetIndex,
+            current: scroll.returnCurrent(this.state.current, newTargetIndex)
           }
         });
       }
     });
   }
 
-  componentDidUpdate() {
-    let item = document.querySelector('li.selected');
-    if (item) {
-      let searchResult = document.getElementById('searchResult');
-      // console.log('here');
-      scroll.animateScroll2(searchResult, parseInt(searchResult.dataset.s));
-      // searchResult.scrollTop = parseInt(searchResult.dataset.s);
+  componentDidUpdate(prevProps) {
+    if (prevProps.value !== this.props.value) {
+      this.setState({
+        targetIndex: 0,
+        current: 0
+      })
+    } else {
+      let item = document.querySelector('li.selected');
+      // 触发时间需要调整 写给函数专门进行判断
+      if (item) {
+        let searchResult = document.getElementById('searchResult');
+        searchResult.scrollTop = parseInt(56 * this.state.current);
+      }
     }
   }
 
@@ -48,8 +58,11 @@ class SearchResult extends React.Component {
     // console.log(item);
     // console.log(originData[item.originalIndex].date);
     console.log(originData[item.originalIndex].link);
+    console.log(scroll.returnCurrent(this.state.current, index));
+
     this.setState({
-      targetIndex: index
+      targetIndex: index,
+      current: scroll.returnCurrent(this.state.current, index)
     });
   }
 
@@ -58,7 +71,7 @@ class SearchResult extends React.Component {
     const { arr } = this.props;
 
     return (
-      <ul id='searchResult' data-s={ 56 * (targetIndex - 9 > 0 ? targetIndex - 9 : 0) }>
+      <ul id='searchResult'>
         {
           arr.map((item, i) => {
             item.index = i;

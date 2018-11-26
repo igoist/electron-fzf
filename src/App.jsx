@@ -40,12 +40,12 @@ class App extends React.Component {
     // const arr = result.slice(0, 10);
     const arr = result;
     ipcRenderer.send('change-win', { listHeight: arr.length > 10 ? 10 : arr.length });
-    console.log(arr.length);
+    console.log(arr.length, value);
 
     return (
       <div>
         <input id='searchInput' value={ value } onChange={ this.handleChange } />
-        <SearchResult arr={ arr } originData={ originData } />
+        <SearchResult value={ value } arr={ arr } originData={ originData } />
       </div>
     );
   }
