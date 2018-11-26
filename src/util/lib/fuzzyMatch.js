@@ -52,12 +52,17 @@ const fuzzyList = (fuzzy, list) => {
     }
   }
 
+  let i = 0;
   // sorts in-place
+  console.time('sort');
+  // replace it to quick sort later
   results.sort((a, b) => {
+    i++;
     if (a.original < b.original) return -1;
     return 1;
   });
-
+  console.timeEnd('sort');
+  console.log('sort end, i: ', i, 'results.length: ', results.length, ' list.length: ', list.length);
   return results;
 };
 

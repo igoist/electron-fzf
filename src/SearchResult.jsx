@@ -12,11 +12,11 @@ class SearchResult extends React.Component {
   }
 
   componentDidMount() {
-    console.log('init');
+    // console.log('init');
     window.addEventListener('keydown', (e) => {
-      console.log('The key code is: ' + e.keyCode);
+      // console.log('The key code is: ' + e.keyCode);
 
-      if (e.keyCode === 74 || e.keyCode === 40) {
+      if ((e.keyCode === 74 && e.ctrlKey) || e.keyCode === 40) {
         this.setState((state, props) => {
           const newTargetIndex = state.targetIndex + 1 > props.arr.length - 1 ? state.targetIndex : state.targetIndex + 1;
           return {
@@ -25,7 +25,7 @@ class SearchResult extends React.Component {
           }
         });
       }
-      if (e.keyCode === 75 || e.keyCode === 38) {
+      if ((e.keyCode === 75 && e.ctrlKey) || e.keyCode === 38) {
         this.setState((state) => {
           const newTargetIndex = state.targetIndex > 0 ? state.targetIndex - 1 : 0;
           return {
@@ -34,6 +34,11 @@ class SearchResult extends React.Component {
           }
         });
       }
+      // 因为是全局绑定的 keydown，输入文字会有问题
+      // if (e.keyCode === 13) {
+      //   const item = this.props.originData[this.props.arr[this.state.targetIndex].originalIndex];
+      //   console.log(item.date, item.link);
+      // }
     });
   }
 

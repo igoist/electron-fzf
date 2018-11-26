@@ -64,6 +64,10 @@ $itemHeight: 56px;
       background-color: #291a1a;
     }
 
+    &:hover {
+      border-left-width: 0px;
+    }
+
     span.em {
       color: #4fa;
     }

@@ -45,6 +45,10 @@ function animateScroll2(element, targetTop) {
   window.requestAnimationFrame(step);
 }
 
+/**
+ * 这里有个疑问
+ * 就是当...
+ */
 const returnCurrent = (current, index) => {
   // console.log('current: ', current, 'index: ', index);
   if (index - current > 9) {
