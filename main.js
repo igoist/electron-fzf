@@ -5,6 +5,8 @@ const { ipcMain, app, BrowserWindow, globalShortcut, Menu, Tray } = require('ele
 
 const winWidth = 800;
 const winHeightUnit = 56;
+let win = null;
+let winFlag = true;
 
 function createWindow () {
   // 创建浏览器窗口
@@ -36,14 +38,8 @@ function createWindow () {
       label: 'Event',
       click: () => {
         // event.sender.send('tray-removed')
-
-        // const notification = {
-        //   title: 'Notification with image',
-        //   body: 'Short message plus a custom image',
-        //   // icon: path.join(__dirname, './public/img/programming.png')
-        // };
-        // const myNotification = new window.Notification(notification.title, notification);
         console.log('Oh! Event!~');
+        win.show();
       }
     },
     {
@@ -90,15 +86,50 @@ function createWindow () {
 
   // 打开开发者工具
   win.webContents.openDevTools();
+  win.on('close', e => {
+    console.log('app.quitting? ', app.quitting);
+    if (app.quitting) {
+      win = null;
+    } else {
+      e.preventDefault();
+      win.hide();
+      winFlag = false;
+    }
+  });
+
+
+  globalShortcut.register('Alt+Space', () => {
+    console.log('Alt+Space');
+    if (winFlag) {
+      win.hide();
+    } else {
+      win.show();
+    }
+    winFlag = !winFlag;
+  });
 
   globalShortcut.register('CmdOrCtrl+Y', () => {
     // Do stuff when Y and either Command/Control is pressed.
     console.log('CmdOrCtrl+Y');
   });
   globalShortcut.register('Ctrl+Y', () => {
-    // Do stuff when Y and Ctrl is pressed.
     console.log('Ctrl+Y');
-  })
+  });
 }
 
-app.on('ready', createWindow)
+
+app.on('ready', createWindow);
+
+setTimeout(() => {
+  app.dock.hide();
+}, 600);
+
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
+});
+
+app.on('activate', () => { win.show() });
+
+app.on('before-quit', () => app.quitting = true);
