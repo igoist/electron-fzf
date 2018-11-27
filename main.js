@@ -8,6 +8,16 @@ const winHeightUnit = 56;
 let win = null;
 let winFlag = true;
 
+const hideOrShowWin = ifShow => {
+  if (ifShow) {
+    win.show();
+    winFlag = true;
+  } else {
+    win.hide();
+    winFlag = false;
+  }
+}
+
 function createWindow () {
   // 创建浏览器窗口
   win = new BrowserWindow({
@@ -39,7 +49,7 @@ function createWindow () {
       click: () => {
         // event.sender.send('tray-removed')
         console.log('Oh! Event!~');
-        win.show();
+        hideOrShowWin(true);
       }
     },
     {
@@ -70,12 +80,6 @@ function createWindow () {
   });
   ipcMain.on('reply-test', (event, arg) => {
     console.log(arg);
-    // const notification = {
-    //   title: 'Notification with image',
-    //   body: 'Short message plus a custom image' + arg,
-    //   // icon: path.join(__dirname, './public/img/programming.png')
-    // };
-    // const myNotification = new window.Notification(notification.title, notification);
   });
   ipcMain.on('change-win', (event, arg) => {
     // console.log(arg);
@@ -92,8 +96,7 @@ function createWindow () {
       win = null;
     } else {
       e.preventDefault();
-      win.hide();
-      winFlag = false;
+      hideOrShowWin(false);
     }
   });
 
@@ -101,11 +104,10 @@ function createWindow () {
   globalShortcut.register('Alt+Space', () => {
     console.log('Alt+Space');
     if (winFlag) {
-      win.hide();
+      hideOrShowWin(false);
     } else {
-      win.show();
+      hideOrShowWin(true);
     }
-    winFlag = !winFlag;
   });
 
   globalShortcut.register('CmdOrCtrl+Y', () => {
@@ -116,7 +118,6 @@ function createWindow () {
     console.log('Ctrl+Y');
   });
 }
-
 
 app.on('ready', createWindow);
 
@@ -130,6 +131,6 @@ app.on('window-all-closed', () => {
   }
 });
 
-app.on('activate', () => { win.show() });
+app.on('activate', () => { hideOrShowWin(true) });
 
 app.on('before-quit', () => app.quitting = true);
