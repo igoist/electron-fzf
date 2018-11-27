@@ -10,6 +10,19 @@ body {
   overflow: hidden;
 }
 
+.btn {
+  border: 1px solid #fff;
+  cursor: pointer;
+  outline: none;
+  text-align: center;
+  user-select: none;
+  background-color: unset;
+}
+
+#inputWrapper {
+  position: relative;
+}
+
 $itemHeight: 56px;
 
 #searchInput {
@@ -28,6 +41,50 @@ $itemHeight: 56px;
   outline: none;
   box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.16);
 }
+
+.inputAfter {
+  position: absolute;
+  right: 18px;
+  top: 12px;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  cursor: pointer;
+
+  .searchBar-searchIcon {
+    border: none;
+    width: 32px;
+    height: 32px;
+
+    span {
+      display: inline-flex;
+      align-items: center;
+
+      &:before {
+        content: '';
+        width: 32px;
+        height: 32px;
+        color: #149cec;
+        background-image: url(../img/search.svg);
+        background-size: 32px;
+        background-repeat: no-repeat;
+        cursor: pointer;
+      }
+    }
+  }
+
+  &.toggle {
+    .searchBar-searchIcon {
+      span {
+        &:before {
+          background-image: url(../img/programming.png);
+        }
+      }
+    }
+  }
+}
+
+
 
 #searchResult {
   max-height: $itemHeight * 10;

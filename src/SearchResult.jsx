@@ -62,6 +62,7 @@ class SearchResult extends React.Component {
     const { originData } = this.props;
     // console.log(item);
     // console.log(originData[item.originalIndex].date);
+    console.log(originData[item.originalIndex].title);
     console.log(originData[item.originalIndex].link);
     console.log(scroll.returnCurrent(this.state.current, index));
 

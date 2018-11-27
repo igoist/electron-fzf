@@ -11,10 +11,12 @@ class App extends React.Component {
     this.state = {
       value: '',
       data: [],
-      result: []
+      result: [],
+      mode: 0
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -25,7 +27,7 @@ class App extends React.Component {
 
   handleChange(event) {
     // console.log(event.target.value);
-    let ret = event.target.value.trim() === '' ? [] : fuzzyMatch.fuzzyList(event.target.value, originData);
+    let ret = event.target.value.trim() === '' ? [] : fuzzyMatch.fuzzyList(event.target.value, originData, this.state.mode);
     // console.log(ret);
     // console.log(ret.length);
     this.setState({
@@ -34,9 +36,16 @@ class App extends React.Component {
     });
   }
 
+  handleClick() {
+    this.setState(state => {
+      return {
+        mode: state.mode === 0 ? 1 : 0
+      };
+    });
+  }
 
   render() {
-    const { value, result } = this.state;
+    const { value, result, mode } = this.state;
     // const arr = result.slice(0, 10);
     const arr = result;
     ipcRenderer.send('change-win', { listHeight: arr.length > 10 ? 10 : arr.length });
@@ -44,7 +53,14 @@ class App extends React.Component {
 
     return (
       <div>
-        <input id='searchInput' value={ value } onChange={ this.handleChange } />
+        <div id='inputWrapper'>
+          <input id='searchInput' value={ value } onChange={ this.handleChange } />
+          <div className={ `inputAfter ${ mode === 0 ? '' : 'toggle' }`} onClick={ this.handleClick }>
+            <button aria-label='搜索' type='button' className='btn searchBar-searchIcon Button--primary'>
+              <span></span>
+            </button>
+          </div>
+        </div>
         <SearchResult value={ value } arr={ arr } originData={ originData } />
       </div>
     );
