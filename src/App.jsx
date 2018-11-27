@@ -23,6 +23,14 @@ class App extends React.Component {
     this.setState({
       data: originData
     });
+
+    ipcRenderer.on('mode-change', (event, arg) => {
+      this.setState(state => {
+        return {
+          mode: state.mode === 0 ? 1 : 0
+        };
+      });
+    });
   }
 
   handleChange(event) {

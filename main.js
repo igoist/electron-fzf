@@ -114,8 +114,8 @@ function createWindow () {
     // Do stuff when Y and either Command/Control is pressed.
     console.log('CmdOrCtrl+Y');
   });
-  globalShortcut.register('Ctrl+Y', () => {
-    console.log('Ctrl+Y');
+  globalShortcut.register('Ctrl+M', () => {
+    win.webContents.send('mode-change');
   });
 }
 
